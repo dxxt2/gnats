@@ -28,6 +28,10 @@ class WorkerPrSpider(CrawlSpider):
 
         hxs = HtmlXPathSelector(response)
 
-        item = parse_gnats_item(hxs)
+        try:
+            number, scope = self.number.split('-')
+        except:
+            scope = 1
+        item = parse_gnats_item(hxs, scope)
         item['worker'] = [self.uid]
         return item
